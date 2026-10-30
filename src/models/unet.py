@@ -14,10 +14,10 @@ class UNet(nn.Module):
 
     self.bottleneck = Double_Conv(512, 1024)
 
-    self.up_conv1 = UpBlock(1024, 512, 1024)
-    self.up_conv2 = UpBlock(512, 256, 512)
-    self.up_conv3 = UpBlock(256, 128, 256)
-    self.up_conv4 = UpBlock(128, 64, 128)
+    self.up_conv1 = UpBlock(1024, 512, 512)
+    self.up_conv2 = UpBlock(512, 256, 256)
+    self.up_conv3 = UpBlock(256, 128, 128)
+    self.up_conv4 = UpBlock(128, 64, 64)
 
     self.out = nn.Conv2d(in_channels=64, out_channels=out_channels, kernel_size=1)
 
