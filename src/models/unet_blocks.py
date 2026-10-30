@@ -24,9 +24,9 @@ class DownBlock(nn.Module):
     self.pool = nn.MaxPool2d(kernel_size=2, stride=2)
 
   def forward(self, x):
-    x = self.conv(x)
-    x = self.pool(x)
-    return x
+    conv = self.conv(x)
+    pool = self.pool(conv)
+    return conv, pool
 
 class UpBlock(nn.Module):
     def __init__(self, in_channels, out_channels, skip_channels):
