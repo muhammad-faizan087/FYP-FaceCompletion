@@ -9,7 +9,7 @@ ACTIVE_SPLIT_DIR = "/content/drive/MyDrive/FYP_FaceCompletion/splits_active"
 # Persistent outputs on Drive
 RESULT_DIR = "/content/drive/MyDrive/FYP_FaceCompletion/results"
 
-BATCH_SIZE = 32
+BATCH_SIZE = 8
 EPOCHS = 20
 LEARNING_RATE = 1e-4
 BASE_CHANNELS = 32
