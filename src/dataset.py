@@ -56,17 +56,25 @@ class CelebAHQ256(Dataset):
             raise ValueError("mask_fn must be provided.")
 
         if self.fixed_masks:
+            # Fixed, reproducible mask for validation/testing
             rng = np.random.default_rng(self.mask_seed + idx)
+        
             mask_np = self.mask_fn(
-            h, w,
-            rng=rng,
-            ratio_range=self.mask_ratio_range
+                h,
+                w,
+                rng=rng,
+                ratio_range=self.mask_ratio_range
             )
+        
         else:
-           mask_np = self.mask_fn(
-            h, w,
-            rng=rng,
-            ratio_range=self.mask_ratio_range
+            # Random mask for training
+            rng = np.random.default_rng()
+        
+            mask_np = self.mask_fn(
+                h,
+                w,
+                rng=rng,
+                ratio_range=self.mask_ratio_range
             )
 
         # Shape: (1, H, W); 1 = missing region
