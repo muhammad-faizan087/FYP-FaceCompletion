@@ -17,9 +17,12 @@ class CelebAHQ256(Dataset):
         augment=False,
         mask_fn=None,
         fixed_masks=False,
-        mask_seed=42
+        mask_seed=42,
+        mask_ratio_range=(0.10, 0.50)
     ):
         self.img_dir = img_dir
+
+        self.mask_ratio_range = mask_ratio_range
 
         with open(split_file, "r") as f:
             self.names = f.read().split()
@@ -54,9 +57,17 @@ class CelebAHQ256(Dataset):
 
         if self.fixed_masks:
             rng = np.random.default_rng(self.mask_seed + idx)
-            mask_np = self.mask_fn(h, w, rng=rng)
+            mask_np = self.mask_fn(
+            h, w,
+            rng=rng,
+            ratio_range=self.mask_ratio_range
+            )
         else:
-            mask_np = self.mask_fn(h, w)
+           mask_np = self.mask_fn(
+            h, w,
+            rng=rng,
+            ratio_range=self.mask_ratio_range
+            )
 
         # Shape: (1, H, W); 1 = missing region
         mask = torch.from_numpy(mask_np).unsqueeze(0)
